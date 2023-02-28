@@ -7,40 +7,40 @@
 import cv2
 import dlib
 
-
-#Initialize a face cascade using the frontal face haar cascade provided with
-#the OpenCV library
-faceCascade = cv2.CascadeClassifier('cascade.xml')
-
-#The deisred output width and height
-OUTPUT_SIZE_WIDTH = 775
-OUTPUT_SIZE_HEIGHT = 600
-
-#Open the first webcame device
-capture = cv2.VideoCapture(0)
-
-#Create two opencv named windows
-cv2.namedWindow("base-image", cv2.WINDOW_AUTOSIZE)
-cv2.namedWindow("result-image", cv2.WINDOW_AUTOSIZE)
-
-#Position the windows next to eachother
-cv2.moveWindow("base-image",0,100)
-cv2.moveWindow("result-image",400,100)
-
-#Start the window thread for the two windows we are using
-cv2.startWindowThread()
-
-#Create the tracker we will use
-tracker = dlib.correlation_tracker()
-
-#The variable we use to keep track of the fact whether we are
-#currently using the dlib tracker
-trackingFace = 0
-
-#The color of the rectangle we draw around the face
-rectangleColor = (0,165,255)
-
 class DetectAndTrack:
+    def __init__(self):
+        #Initialize a face cascade using the frontal face haar cascade provided with
+        #the OpenCV library
+        faceCascade = cv2.CascadeClassifier('cascade.xml')
+
+        #The deisred output width and height
+        OUTPUT_SIZE_WIDTH = 775
+        OUTPUT_SIZE_HEIGHT = 600
+
+        #Open the first webcame device
+        # capture = cv2.VideoCapture(0)
+
+        #Create two opencv named windows
+        cv2.namedWindow("base-image", cv2.WINDOW_AUTOSIZE)
+        cv2.namedWindow("result-image", cv2.WINDOW_AUTOSIZE)
+
+        #Position the windows next to eachother
+        cv2.moveWindow("base-image",0,100)
+        cv2.moveWindow("result-image",400,100)
+
+        #Start the window thread for the two windows we are using
+        cv2.startWindowThread()
+
+        #Create the tracker we will use
+        tracker = dlib.correlation_tracker()
+
+        #The variable we use to keep track of the fact whether we are
+        #currently using the dlib tracker
+        trackingFace = 0
+
+        #The color of the rectangle we draw around the face
+        rectangleColor = (0,165,255)
+
     def process_image(image):
         #Resize the image to 320x240
         baseImage = cv2.resize(image, (320, 240))

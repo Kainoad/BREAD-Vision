@@ -1,7 +1,7 @@
 import cv2
 from numpy import *
 import time
-# from picamera import PiCamera
+from picamera import PiCamera
 
 from Colorintegration import ColorIntegration
 from detect_and_track import DetectAndTrack
