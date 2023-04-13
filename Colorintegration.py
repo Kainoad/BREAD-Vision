@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 class ColorIntegration:
-    def __init__(self):
+    def process_image(image):
         #initialize tolarance specs
         required = np.array([10,10,10])
         utolarance = np.array([0,0,0])
@@ -13,7 +13,7 @@ class ColorIntegration:
         #image frame
         height = 720
         width = 1280
-    def process_image(image):
+        
         color = np.array(image[int(height/2),int(width/2)])
         # print(color)
         if all(ltolarance<color) and all(utolarance>color):
