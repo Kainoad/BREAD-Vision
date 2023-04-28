@@ -58,39 +58,47 @@ def ConvertStringsToBytes(src):
 def main(args):
     I2Cbus = smbus.SMBus(1)
     
-    BytesToSend = 0;
+    # BytesToSend = 0;
     #for loop to index color until told to stop.
     while(True):
         # # cmd = input("Enter command: ")
         
-        # # BytesToSend = ConvertStringsToBytes(cmd)
-        # BytesToSend += 1;
-        # print("\nSent BREAD Loaf the " + str(BytesToSend) + " command.")
-        # # print(BytesToSend)
-        # # I2Cbus.write_i2c_block_data(I2C_SLAVE_ADDRESS, 0x00, BytesToSend)
-        # I2Cbus.write_byte_data(I2C_SLAVE_ADDRESS, 0x00, BytesToSend)
-        # time.sleep(0.5)
         
-        # try:
-            # # data = I2Cbus.read_i2c_block_data(I2C_SLAVE_ADDRESS,0x00,2)
-            # data = I2Cbus.read_byte_data(I2C_SLAVE_ADDRESS, 0)
-            # print("recieve from BREAD Loaf:", data)
-            
-        # except:
-            # print("remote i/o error")
-            # time.sleep(0.5)
         
         
         camera.capture_file("img.jpg")
         image = cv2.imread("img.jpg")
         
         print("Color Intregration:")
-        print(ColorIntegration.process_image(image))
+        response = "CI:" + ColorIntegration.process_image(image)
+        # print(ColorIntegration.process_image(image))
 
         print("Detect And Track:")
-        print(DetectAndTrack.process_image(image))
+        response = response + "\nDaT:" + DetectAndTrack.process_image(image)
+        # print(DetectAndTrack.process_image(image))
+        
+        print(response)
+        
+        
+        # BytesToSend = ConvertStringsToBytes("TestCMD123")
+        BytesToSend = ConvertStringsToBytes(response)
+        # BytesToSend += 1;
+        print("\nSent BREAD Loaf the " + str(BytesToSend) + " command.")
+        # print(BytesToSend)
+        I2Cbus.write_i2c_block_data(I2C_SLAVE_ADDRESS, 0x00, BytesToSend)
+        # I2Cbus.write_byte_data(I2C_SLAVE_ADDRESS, 0x00, BytesToSend)
+        time.sleep(0.5)
+        
+        try:
+            data = I2Cbus.read_i2c_block_data(I2C_SLAVE_ADDRESS,0x00,20)
+            # data = I2Cbus.read_byte_data(I2C_SLAVE_ADDRESS, 0)
+            print("recieve from BREAD Loaf:", data)
+            
+        except:
+            print("remote i/o error")
+            time.sleep(0.5)
 
-        time.sleep(1)
+        time.sleep(2)
             
     return 0
 

@@ -71,7 +71,7 @@ class DetectAndTrack:
 
             #In the console we can show that only now we are
             #using the detector for a face
-            print("Using the cascade detector to detect face")
+            # print("Using the cascade detector to detect face")
 
 
             #For now, we are only interested in the 'largest'
